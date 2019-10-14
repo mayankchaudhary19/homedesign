@@ -19,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         videoView = (VideoView) findViewById(R.id.videoView);
 
-        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.two);
+        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.one);
         videoView.setVideoURI(video);
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
