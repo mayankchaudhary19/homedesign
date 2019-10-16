@@ -8,20 +8,24 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_2"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
-        <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:icon="@drawable/ic_package_2"
+            android:title="Products" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_bell"
+            android:title="Notifications" />
         <item
             android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:icon="@drawable/ic_tag"
+            android:title="Offer Zone" />
+        <item
+            android:id="@+id/nav_tools"
+            android:icon="@drawable/ic_sprout_4"
+            android:title="We Care" />
     </group>
 
     <item android:title="Communicate">
