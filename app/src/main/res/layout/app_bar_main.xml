@@ -9,13 +9,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#12DDDDDD"
+        android:backgroundTint="#3CCCCCCC"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="match_parent"
+            android:background="#ADADAD"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -28,6 +30,83 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:backgroundTint="#ADADAD"
+        android:elevation="6dp"
+        app:hoveredFocusedTranslationZ="6dp"
+        app:srcCompat="@drawable/plus"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_call"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="90dp"
+        android:elevation="6dp"
+        android:visibility="invisible"
+        app:pressedTranslationZ="6dp"
+        app:srcCompat="@drawable/ic_telephone" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_mail"
+        android:layout_width="40"
+        android:layout_height="40"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="140dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="@color/mail"
+        android:elevation="6dp"
+        app:srcCompat="@drawable/ic_gmail"
+
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_text"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        app:srcCompat="@drawable/ic_i_message"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:layout_marginBottom="190dp"
+        app:backgroundTint="@color/call"
+        android:visibility="invisible"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_whatsApp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        app:srcCompat="@drawable/ic_whatsapp"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:layout_marginBottom="240dp"
+        app:backgroundTint="@color/call"
+        android:visibility="invisible"
+        />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_maps"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        app:srcCompat="@drawable/ic_maps"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:layout_marginBottom="290dp"
+        app:backgroundTint="@color/call"
+        android:visibility="invisible"
+        />
+
+
+
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

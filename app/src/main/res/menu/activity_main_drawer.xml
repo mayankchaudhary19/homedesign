@@ -11,34 +11,59 @@
             android:icon="@drawable/ic_home_2"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_products"
             android:icon="@drawable/ic_package_2"
             android:title="Products" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_bell"
             android:title="Notifications" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_offer_zone"
             android:icon="@drawable/ic_tag"
             android:title="Offer Zone" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_we_care"
             android:icon="@drawable/ic_sprout_4"
             android:title="We Care" />
+        <item
+            android:checkable="false"
+            android:checked="false"
+            android:enabled="false"
+            android:title="" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
-        </menu>
-    </item>
+<!--    <item>-->
+<!--        <menu>-->
+         <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_star"
+            android:title="@string/menu_rate" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share"
+            android:title="@string/menu_share" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_info"
+            android:title="@string/menu_about_us" />
+
+        <item
+            android:id="@+id/nav_store"
+            android:icon="@drawable/ic_shop"
+            android:title="@string/menu_store" />
+
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_contact"
+            android:title="@string/menu_contact_us" />
+
+        <item
+            android:id="@+id/nav_franchise"
+            android:icon="@drawable/ic_support"
+            android:title="@string/menu_franchise" />
+
+<!--        </menu>-->
+<!--    </item>-->
 
 </menu>
