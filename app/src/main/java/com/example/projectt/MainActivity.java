@@ -3,6 +3,7 @@ package com.example.projectt;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,16 +20,30 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,26 +58,59 @@ public class MainActivity extends AppCompatActivity
     Animation fab_close;
     Animation rclockwise;
     Animation ranticlockwise;
+    Animation rforward;
+    Animation rbackward;
     boolean isOpen=false;
 
+
+    SliderView sliderView;
+
+
+
+    ArrayList<Categories> list,list1,list3;
+    RecyclerView recyclerView,recyclerView1,recyclerView3;
+
+    int img[] = {R.drawable.ic_home_3,R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,R.drawable.ic_stock};
+    String t1[]= {"Household","Hotelware","Kids' Toys","Fan Blades","Navratri Special","Multipurpose Boxes"};
+    int img2[]= {R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,R.drawable.ic_stock,R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,};
+    String t2[]= {"LockBoxes","Containers","Baskets","Plates","Bowls","Glasses","Jugs","Soup Bowls","Buckets","Mugs","Tub","Soap Dishes","Dustbins & Dust-Pan"};
+int img3[]={R.drawable.ic_home_3 , };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_right_black_24dp);
 
-        fab=findViewById(R.id.fab);
-        fab_call=findViewById(R.id.fab_call);
-        fab_mail=findViewById(R.id.fab_mail);
-        fab_text=findViewById(R.id.fab_text);
-        fab_whatsApp=findViewById(R.id.fab_whatsApp);
-        fab_maps=findViewById(R.id.fab_maps);
 
-        fab_open= AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_open);
-        fab_close= AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_close);
-        rclockwise= AnimationUtils.loadAnimation(MainActivity.this,R.anim.rotate_clockwise);
-        ranticlockwise= AnimationUtils.loadAnimation(MainActivity.this,R.anim.rotate_anticlockwise);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
+
+        fab = findViewById(R.id.fab);
+        fab_call = findViewById(R.id.fab_call);
+        fab_mail = findViewById(R.id.fab_mail);
+        fab_text = findViewById(R.id.fab_text);
+        fab_whatsApp = findViewById(R.id.fab_whatsApp);
+        fab_maps = findViewById(R.id.fab_maps);
+
+
+        fab_open = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fab_close);
+        rclockwise = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_clockwise);
+        ranticlockwise = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_anticlockwise);
+        rforward= AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_forward);
+        rbackward = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_backward);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +118,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 if(isOpen){
+                    fab.startAnimation(rbackward);
                     fab_call.startAnimation(fab_close);
                     fab_mail.startAnimation(fab_close);
                     fab_text.startAnimation(fab_close);
@@ -77,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                     isOpen=false;
                 }
                 else{
-
+                    fab.startAnimation(rforward);
                     fab_call.startAnimation(fab_open);
                     fab_mail.startAnimation(fab_open);
                     fab_text.startAnimation(fab_open);
@@ -94,8 +144,6 @@ public class MainActivity extends AppCompatActivity
                     isOpen=true;
                 }
 
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
 
@@ -132,7 +180,9 @@ public class MainActivity extends AppCompatActivity
         fab_whatsApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openWhatsApp();
+                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
             }
         });
 
@@ -140,18 +190,47 @@ public class MainActivity extends AppCompatActivity
         fab_maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMaps();
+                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
             }
         });
 
+//        for slideView
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        sliderView = findViewById(R.id.imageSlider);
+        final SliderAdapterExample adapter = new SliderAdapterExample(this);
+        adapter.setCount(5);
+
+        sliderView.setSliderAdapter(adapter);
+
+
+        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+//        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.setIndicatorSelectedColor(Color.WHITE);
+        sliderView.setIndicatorUnselectedColor(Color.GRAY);
+        sliderView.startAutoCycle();
+        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+           @Override
+           public void onIndicatorClicked(int position) {
+               sliderView.setCurrentPagePosition(position);
+           }
+        });
+
+
+//recyclerView
+        recyclerView = findViewById(R.id.recyclerView);
+        list = new ArrayList<>();
+        recyclerView1 = findViewById(R.id.recyclerView2);
+        list1 = new ArrayList<>();
+        recyclerView3 = findViewById(R.id.recyclerView3);
+        list3 = new ArrayList<>();
+
+        addCategories();
+        addSubCategories();
+        addFeaturedPrdducts();
+
     }
 
 
@@ -192,13 +271,143 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void openWhatsApp(){
-        Toast.makeText(MainActivity.this, "To open whatApp", Toast.LENGTH_SHORT).show();
+
+//    private void openWhatsApp(){
+//          }
+//
+//    private void openMaps(){
+//          }
+
+
+
+    public void addCategories() {
+        recyclerView.setLayoutManager( new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false)
+        );
+        for (int i = 0; i < img.length; i++) {
+            Categories itemModel = new Categories();
+            itemModel.setImg(img[i]);
+            itemModel.setTitle(t1[i]);
+            list.add(itemModel);
+        }
+
+        CategoryAdapter adapter = new CategoryAdapter(getApplicationContext(), list);
+        recyclerView.setAdapter(adapter);
     }
 
-    private void openMaps(){
-        Toast.makeText(MainActivity.this, "To open maps", Toast.LENGTH_SHORT).show();
+
+    public void addSubCategories() {
+        recyclerView1.setLayoutManager( new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false)
+        );
+        for (int i = 0; i < img2.length; i++) {
+            Categories itemModel = new Categories();
+            itemModel.setImg(img2[i]);
+            itemModel.setTitle(t2[i]);
+            list1.add(itemModel);
+        }
+
+        SubCategoryAdapter adapter = new SubCategoryAdapter(getApplicationContext(), list1);
+        recyclerView1.setAdapter(adapter);
     }
+
+    public void addFeaturedPrdducts() {
+        RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
+        recyclerView3.setLayoutManager(manager);
+        recyclerView3.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
+        for (int i = 0; i < img2.length; i++) {
+            Categories itemModel = new Categories();
+            itemModel.setImg(img2[i]);
+            itemModel.setTitle(t2[i]);
+            list1.add(itemModel);
+        }
+
+        SubCategoryAdapter adapter = new SubCategoryAdapter(getApplicationContext(), list1);
+        recyclerView1.setAdapter(adapter);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
+//
+//        public class ViewHolder extends RecyclerView.ViewHolder {
+//            TextView t1;
+//            ImageView img;
+//            public ViewHolder(@NonNull View itemView) {
+//                super(itemView);
+//                t1 = itemView.findViewById(R.id.title);
+//                img = itemView.findViewById(R.id.categ_imageView);
+//            }
+//        }
+//
+//        @NonNull
+//        @Override
+//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            View v = getLayoutInflater().inflate(R.layout.category_item,parent,false);
+//            return new ViewHolder(v);
+//
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+//            Categories data = list.get(position);
+//            holder.t1.setText(data.getTitle());
+//            holder.img.setImageDrawable(getDrawable(data.getImg()));
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return list.size();
+//        }
+//
+//
+//    }
+
+//
+//    class MyAdaptertwo extends RecyclerView.Adapter<MyAdaptertwo.ViewHolder>{
+//
+//        @NonNull
+//        @Override
+//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            View v2 = getLayoutInflater().inflate(R.layout.sub_categories,parent,false);
+//            return new ViewHolder(v2);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+//            Categories data2 = list.get(position);
+//            holder.t2.setText(data2.getTitle());
+//            holder.img2.setImageDrawable(getDrawable(data2.getImg()));
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return list.size();
+//        }
+//
+//        public class ViewHolder extends RecyclerView.ViewHolder {
+//            TextView t2;
+//            ImageView img2;
+//            public ViewHolder(@NonNull View itemView) {
+//                super(itemView);
+//                t2 = itemView.findViewById(R.id.imageView14);
+//                img2 = itemView.findViewById(R.id.textView10);
+//            }
+//        }
+//    }
 
 
 
@@ -227,7 +436,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.main_shopping_cart) {
             return true;
         }
 
@@ -269,4 +478,57 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
+
+
+
+
+
+
+
+
+//Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+// fab.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+//                    @Override
+//                    public void onMenuExpanded() {
+//                        dimmedBackground.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    @Override
+//                    public void onMenuCollapsed() {
+//                        dimmedBackground.setVisibility(View.GONE);
+//                    }
+//                });
+//                WindowManager wm = (WindowManager) MainActivity.this.getSystemService(Context.WINDOW_SERVICE);
+//                WindowManager.LayoutParams p = (WindowManager.LayoutParams) view.getLayoutParams();
+//                p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+//                p.dimAmount = 0.4f;
+//                wm.updateViewLayout(view, p);
+
+//    FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
+
+
+
+
+
+
+
+//    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+//        RecyclerView.LayoutManager mLayoutManager =
+//                new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+//        recyclerView.setLayoutManager(mLayoutManager);
+////        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        CategoryAdapter mAdapter = new CategoryAdapter();
+//        recyclerView.setAdapter(mAdapter);

@@ -15,7 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitStart"
-        tools:srcCompat="@drawable/navigation" />
+        tools:srcCompat="@drawable/navigation"
+        android:src="@drawable/navigation"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -27,7 +28,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="-14dp"
         android:layout_marginBottom="40dp"
-        tools:srcCompat="@drawable/ic_account_circle_black_24dp" />
+        tools:srcCompat="@drawable/ic_account_circle_black_24dp"
+        android:src="@drawable/ic_account_circle_black_24dp"/>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -39,7 +41,8 @@
         android:layout_marginTop="-11dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="45dp"
-        tools:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+        tools:srcCompat="@drawable/ic_chevron_right_black_24dp"
+        android:src="@drawable/ic_chevron_right_black_24dp"/>
 
     <TextView
         android:id="@+id/username"
@@ -82,7 +85,8 @@
                 android:layout_height="17dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="3dp"
-                tools:srcCompat="@drawable/ic_user" />
+                tools:srcCompat="@drawable/ic_user"
+                android:src="@drawable/ic_user"/>
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -91,7 +95,8 @@
                 android:layout_weight="1"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="3dp"
-                app:srcCompat="@drawable/ic_heart" />
+                app:srcCompat="@drawable/ic_heart"
+                android:src="@drawable/ic_heart"/>
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -111,7 +116,8 @@
                 android:layout_weight="1"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="3dp"
-                tools:srcCompat="@drawable/ic_shopping_cart" />
+                tools:srcCompat="@drawable/ic_shopping_cart"
+                android:src="@drawable/ic_shopping_cart"/>
 
         </LinearLayout>
 
@@ -127,6 +133,7 @@
                 android:layout_weight="1"
                 android:text="Account"
                 android:gravity="center"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="11sp"/>
 
             <TextView
@@ -136,6 +143,7 @@
                 android:layout_weight="1"
                 android:text="Wishlist"
                 android:gravity="center"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="11sp"/>
 
             <TextView
@@ -145,6 +153,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="Order History"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="11sp" />
 
             <TextView
@@ -153,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Cart"
+                android:textColor="@color/cardview_dark_background"
                 android:gravity="center"
                 android:textSize="11sp"/>
         </LinearLayout>

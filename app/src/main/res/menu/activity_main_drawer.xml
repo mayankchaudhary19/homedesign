@@ -26,15 +26,10 @@
             android:id="@+id/nav_we_care"
             android:icon="@drawable/ic_sprout_4"
             android:title="We Care" />
-        <item
-            android:checkable="false"
-            android:checked="false"
-            android:enabled="false"
-            android:title="" />
+
     </group>
 
-<!--    <item>-->
-<!--        <menu>-->
+    <group android:id="@+id/group_menu">
          <item
             android:id="@+id/nav_rate"
             android:icon="@drawable/ic_star"
@@ -62,8 +57,6 @@
             android:id="@+id/nav_franchise"
             android:icon="@drawable/ic_support"
             android:title="@string/menu_franchise" />
-
-<!--        </menu>-->
-<!--    </item>-->
+    </group>
 
 </menu>
