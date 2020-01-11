@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="160dp"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="4dp">
+        android:layout_width="120dp"
+        android:layout_height="190dp"
+        app:cardCornerRadius="5dp"
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -20,17 +21,20 @@
 
             <ImageView
                 android:id="@+id/product_img"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="43dp"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:background="#F2F9F9F9"
+
+                >
 
                 <LinearLayout
-                    android:layout_width="80dp"
+                    android:layout_width="95dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -43,23 +47,21 @@
                         android:layout_marginRight="3dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:minHeight="15dp"
-                        android:text="Lockbox"
+                        android:minHeight="14dp"
                         android:textSize="16sp"
                         app:autoSizeMaxTextSize="16sp"
-                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeMinTextSize="10sp"
                         app:autoSizeTextType="uniform" />
 
                     <TextView
                         android:id="@+id/product_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:layout_weight="1"
                         android:gravity="top"
-                        android:layout_marginLeft="2dp"
-                        android:text="Medium, 250g "
-                        android:textSize="10sp"
-                        app:autoSizeMaxTextSize="10sp"
+                        android:textSize="12sp"
+                        app:autoSizeMaxTextSize="12sp"
                         app:autoSizeMinTextSize="6sp"
                         app:autoSizeTextType="uniform" />
 
@@ -67,11 +69,11 @@
 
                 <ImageView
                     android:id="@+id/imageView15"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_gravity="top"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:src="@drawable/ic_like" />
 
@@ -81,42 +83,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#F2F9F9F9"
+                android:paddingTop="2dp">
 
                 <TextView
                     android:id="@+id/product_price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="bottom"
-                    android:text="₹150/pc"
-                    android:textSize="11dp"
-                    app:autoSizeMaxTextSize="11sp"
+                    android:textSize="12dp"
+                    app:autoSizeMaxTextSize="12dp"
                     app:autoSizeMinTextSize="6sp"
                     app:autoSizeTextType="uniform" />
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/product_initialPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
-                        android:text="₹200"
-                        android:textSize="10sp"
-                        app:autoSizeMaxTextSize="10sp"
-                        app:autoSizeMinTextSize="5sp"
+                        android:textSize="11sp"
+                        app:autoSizeMaxTextSize="11sp"
+                        app:autoSizeMinTextSize="8sp"
                         app:autoSizeTextType="uniform" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.2mm"
-                        android:layout_alignStart="@id/textView13"
-                        android:layout_alignEnd="@id/textView13"
+                        android:layout_alignStart="@id/product_initialPrice"
+                        android:layout_alignEnd="@id/product_initialPrice"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="6.5dp"
                         android:background="@android:color/darker_gray" />

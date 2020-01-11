@@ -3,6 +3,7 @@ package com.example.projectt;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -35,15 +35,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,14 +63,34 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    ArrayList<Categories> list,list1,list3;
-    RecyclerView recyclerView,recyclerView1,recyclerView3;
+    ArrayList<Categories> list,list1;
+    ArrayList<Products> list3,list4,list5;
+
+    RecyclerView recyclerView,recyclerView1,recyclerView3,recyclerView4,recyclerView5;
 
     int img[] = {R.drawable.ic_home_3,R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,R.drawable.ic_stock};
     String t1[]= {"Household","Hotelware","Kids' Toys","Fan Blades","Navratri Special","Multipurpose Boxes"};
     int img2[]= {R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,R.drawable.ic_stock,R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,R.drawable.ic_hotel,R.drawable.ic_puzzle,R.drawable.ic_fan,R.drawable.ic_hindu,};
     String t2[]= {"LockBoxes","Containers","Baskets","Plates","Bowls","Glasses","Jugs","Soup Bowls","Buckets","Mugs","Tub","Soap Dishes","Dustbins & Dust-Pan"};
-int img3[]={R.drawable.ic_home_3 , };
+
+    int img3[]={R.drawable.unknown5,R.drawable.unknown,R.drawable.unknown3,R.drawable.abcd,R.drawable.unknown1,R.drawable.unknown2,R.drawable.unknown4};
+    String[] title3={"Lock-box","Container","Tub","Glass","Kids' Toys","Fan Blades","Navratri Special"};
+    String[] subtitle3={"Medium, 250g","Large,145g","Medium, 250g","Large,145g","Medium, 250g","Large,145g","Medium, 250g"};
+    String[] price3={"₹150/pc","₹110/pc","₹150/pc","₹110/pc","₹150/pc","₹110/pc","₹150/pc"};
+    String[] initialPrice3={"₹200","₹160","₹200","₹160","₹200","₹160","₹200"};
+
+    int img4[]={R.drawable.unknown5,R.drawable.unknown,R.drawable.unknown3,R.drawable.abcd,R.drawable.unknown1,R.drawable.unknown2,R.drawable.unknown4};
+    String[] title4={"Lock-box","Container","Tub","Glass","Kids' Toys","Fan Blades","Navratri Special"};
+    String[] subtitle4={"Medium, 250g","Large,145g","Medium, 250g","Large,145g","Medium, 250g","Large,145g","Medium, 250g"};
+    String[] price4={"₹150/pc","₹110/pc","₹150/pc","₹110/pc","₹150/pc","₹110/pc","₹150/pc"};
+    String[] initialPrice4={"₹200","₹160","₹200","₹160","₹200","₹160","₹200"};
+
+    int img5[]={R.drawable.unknown5,R.drawable.unknown,R.drawable.unknown3,R.drawable.abcd,R.drawable.unknown1,R.drawable.unknown2,R.drawable.unknown4};
+    String[] title5={"Lock-box","Container","Tub","Glass","Kids' Toys","Fan Blades","Navratri Special"};
+    String[] subtitle5={"Medium, 250g","Large,145g","Medium, 250g","Large,145g","Medium, 250g","Large,145g","Medium, 250g"};
+    String[] price5={"₹150/pc","₹110/pc","₹150/pc","₹110/pc","₹150/pc","₹110/pc","₹150/pc"};
+    String[] initialPrice5={"₹200","₹160","₹200","₹160","₹200","₹160","₹200"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,7 +214,7 @@ int img3[]={R.drawable.ic_home_3 , };
 
 //        for slideView
 
-        sliderView = findViewById(R.id.imageSlider);
+        sliderView = findViewById(R.id.imageSlider2);
         final SliderAdapterExample adapter = new SliderAdapterExample(this);
         adapter.setCount(5);
 
@@ -226,10 +242,15 @@ int img3[]={R.drawable.ic_home_3 , };
         list1 = new ArrayList<>();
         recyclerView3 = findViewById(R.id.recyclerView3);
         list3 = new ArrayList<>();
-
+        recyclerView4=findViewById(R.id.recyclerView4);
+        list4 = new ArrayList<>();
+        recyclerView5=findViewById(R.id.recyclerView5);
+        list5 = new ArrayList<>();
         addCategories();
         addSubCategories();
-        addFeaturedPrdducts();
+        addFeaturedProducts();
+        addNewProducts();
+        addTopDeals();
 
     }
 
@@ -309,107 +330,74 @@ int img3[]={R.drawable.ic_home_3 , };
         recyclerView1.setAdapter(adapter);
     }
 
-    public void addFeaturedPrdducts() {
-        RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
-        recyclerView3.setLayoutManager(manager);
-        recyclerView3.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+    public void addFeaturedProducts() {
 
-        for (int i = 0; i < img2.length; i++) {
-            Categories itemModel = new Categories();
-            itemModel.setImg(img2[i]);
-            itemModel.setTitle(t2[i]);
-            list1.add(itemModel);
+        recyclerView3.setLayoutManager( new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false)
+        );
+
+        for (int i = 0; i < img3.length; i++) {
+            Products itemModel = new Products();
+            itemModel.setImg(img3[i]);
+            itemModel.setTitle(title3[i]);
+            itemModel.setSubtitle(subtitle3[i]);
+            itemModel.setPrice(price3[i]);
+            itemModel.setInitialPrice(initialPrice3[i]);
+
+            list3.add(itemModel);
         }
 
-        SubCategoryAdapter adapter = new SubCategoryAdapter(getApplicationContext(), list1);
-        recyclerView1.setAdapter(adapter);
+        FeaturedProductsAdapter adapter = new FeaturedProductsAdapter(getApplicationContext(), list3);
+        recyclerView3.setAdapter(adapter);
+
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
-//
-//        public class ViewHolder extends RecyclerView.ViewHolder {
-//            TextView t1;
-//            ImageView img;
-//            public ViewHolder(@NonNull View itemView) {
-//                super(itemView);
-//                t1 = itemView.findViewById(R.id.title);
-//                img = itemView.findViewById(R.id.categ_imageView);
-//            }
-//        }
-//
-//        @NonNull
+//     RecyclerView.LayoutManager manager = new GridLayoutManager(this, 1);
+//        recyclerView3.setLayoutManager(manager);
+//        recyclerView3.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL){
 //        @Override
-//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View v = getLayoutInflater().inflate(R.layout.category_item,parent,false);
-//            return new ViewHolder(v);
-//
+//        public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+//            // Do not draw the divider
 //        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//            Categories data = list.get(position);
-//            holder.t1.setText(data.getTitle());
-//            holder.img.setImageDrawable(getDrawable(data.getImg()));
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return list.size();
-//        }
-//
-//
-//    }
+//    });
 
-//
-//    class MyAdaptertwo extends RecyclerView.Adapter<MyAdaptertwo.ViewHolder>{
-//
-//        @NonNull
-//        @Override
-//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View v2 = getLayoutInflater().inflate(R.layout.sub_categories,parent,false);
-//            return new ViewHolder(v2);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//            Categories data2 = list.get(position);
-//            holder.t2.setText(data2.getTitle());
-//            holder.img2.setImageDrawable(getDrawable(data2.getImg()));
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return list.size();
-//        }
-//
-//        public class ViewHolder extends RecyclerView.ViewHolder {
-//            TextView t2;
-//            ImageView img2;
-//            public ViewHolder(@NonNull View itemView) {
-//                super(itemView);
-//                t2 = itemView.findViewById(R.id.imageView14);
-//                img2 = itemView.findViewById(R.id.textView10);
-//            }
-//        }
-//    }
+    public void addNewProducts() {
 
+        recyclerView4.setLayoutManager( new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false)
+        );
+        for (int i = 0; i < img4.length; i++) {
+            Products itemModel = new Products();
+            itemModel.setImg(img4[i]);
+            itemModel.setTitle(title4[i]);
+            itemModel.setSubtitle(subtitle4[i]);
+            itemModel.setPrice(price4[i]);
+            itemModel.setInitialPrice(initialPrice4[i]);
 
+            list4.add(itemModel);
+        }
+
+        FeaturedProductsAdapter adapter = new FeaturedProductsAdapter(getApplicationContext(), list4);
+        recyclerView4.setAdapter(adapter);
+    }
+
+    public void addTopDeals() {
+
+        recyclerView5.setLayoutManager( new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false)
+        );
+
+        for (int i = 0; i < img5.length; i++) {
+            Products itemModel = new Products();
+            itemModel.setImg(img5[i]);
+            itemModel.setTitle(title5[i]);
+            itemModel.setSubtitle(subtitle5[i]);
+            itemModel.setPrice(price5[i]);
+            itemModel.setInitialPrice(initialPrice5[i]);
+
+            list5.add(itemModel);
+        }
+        TopDealsAdapter adapter = new TopDealsAdapter(getApplicationContext(), list5);
+        recyclerView5.setAdapter(adapter);
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -532,3 +520,57 @@ int img3[]={R.drawable.ic_home_3 , };
 ////        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        CategoryAdapter mAdapter = new CategoryAdapter();
 //        recyclerView.setAdapter(mAdapter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
+//
+//        public class ViewHolder extends RecyclerView.ViewHolder {
+//            TextView t1;
+//            ImageView img;
+//            public ViewHolder(@NonNull View itemView) {
+//                super(itemView);
+//                t1 = itemView.findViewById(R.id.title);
+//                img = itemView.findViewById(R.id.categ_imageView);
+//            }
+//        }
+//
+//        @NonNull
+//        @Override
+//        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            View v = getLayoutInflater().inflate(R.layout.category_item,parent,false);
+//            return new ViewHolder(v);
+//
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+//            Categories data = list.get(position);
+//            holder.t1.setText(data.getTitle());
+//            holder.img.setImageDrawable(getDrawable(data.getImg()));
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return list.size();
+//        }
+//
+//
+//    }

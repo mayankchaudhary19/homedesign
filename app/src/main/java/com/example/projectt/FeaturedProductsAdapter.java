@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class FeaturedProductsAdapter extends RecyclerView.Adapter<FeaturedProductsAdapter.viewHolder> {
     Context context;
-    ArrayList<Categories> arrayList;
+    ArrayList<Products> arrayList;
 
-    public FeaturedProductsAdapter(Context context, ArrayList<Categories> arrayList) {
+    public FeaturedProductsAdapter(Context context, ArrayList<Products> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -28,8 +28,11 @@ public class FeaturedProductsAdapter extends RecyclerView.Adapter<FeaturedProduc
 
     @Override
     public  void onBindViewHolder(com.example.projectt.FeaturedProductsAdapter.viewHolder viewHolder, int position) {
-        viewHolder.t2.setText(arrayList.get(position).getTitle());
-        viewHolder.img2.setImageResource(arrayList.get(position).getImg());
+        viewHolder.img3.setImageResource(arrayList.get(position).getImg());
+        viewHolder.title3.setText(arrayList.get(position).getTitle());
+        viewHolder.subtitle3.setText(arrayList.get(position).getSubtitle());
+        viewHolder.price3.setText(arrayList.get(position).getPrice());
+        viewHolder.initialPrice3.setText(arrayList.get(position).getInitialPrice());
     }
 
     @Override
@@ -38,13 +41,20 @@ public class FeaturedProductsAdapter extends RecyclerView.Adapter<FeaturedProduc
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        TextView t2;
-        ImageView img2;
+        TextView title3,subtitle3,price3,initialPrice3;
+        ImageView img3;
 
         public viewHolder(View itemView) {
             super(itemView);
-            img2 = (ImageView) itemView.findViewById(R.id.imageView14);
-            t2 = (TextView) itemView.findViewById(R.id.textView10);
+            img3 = (ImageView) itemView.findViewById(R.id.product_img);
+            title3 = (TextView) itemView.findViewById(R.id.product_name);
+            subtitle3 =(TextView) itemView.findViewById(R.id.product_description);
+            price3 =(TextView) itemView.findViewById(R.id.product_price);
+            initialPrice3 =(TextView) itemView.findViewById(R.id.product_initialPrice);
+
+
+
+
         }
     }
 }
